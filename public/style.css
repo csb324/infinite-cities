@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Ibarra Real Nova', sans-serif;
+  font-size: 1.2em;
+  margin: 0 0 3em;
+  color: #222222;
+  background: #fafafa;
+}
+
+h1{
+  font-size: 3em;
+  margin-top: 0.5em;
+  letter-spacing: 0.1em;
+}
+
+section{
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+img{
+  max-width: 100%;
+}
+
+a{
+  color: #4A89DC;
+  text-decoration: none;
+  transition: 0.1s;
+}
+
+a:hover{
+  transition: all 0.2s linear;  
+  text-decoration: underline;
+}
+
+w-100{
+  max-width: 100%;
+}
+
+.centered{
+  text-align: center;
+  
+  margin-bottom: 2em;
+}
+
+.loading {
+  opacity: 0.2;
+}
+
+.quilt-button {
+  display: block;
+  max-width: 300px;
+  margin: 1em auto;
+/*   color: #ffffff; */
+  color: #999999;
+/*   background-color: #e0a8c5; */
+  border: 2px solid #999999;
+  padding: 1em;
+  font-size: 1.25em;
+  border-radius: 4px;
+}
+
+.quilt-button:hover {
+  color: YELLOWGREEN;
+  border-color: YELLOWGREEN;
+  text-decoration: none;
+}
+
+form {
+  text-align: left;
+}
+input {
+  font-size: 16px;
+  padding: 0.25em;
+}

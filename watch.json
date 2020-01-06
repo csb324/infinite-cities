@@ -1,0 +1,14 @@
+{
+  "install": {
+    "include": ["^package\\.json$"]
+  },
+  "restart": {
+    "exclude": [
+      "^public/",
+      "^dist/",
+      ".md$"
+    ],
+    "include": ["."]
+  },
+  "throttle": 50
+}
