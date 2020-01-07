@@ -12,7 +12,7 @@ class WindowBlueprint {
   }
 
   _initSizes() {
-    const storyHeight = this.building.storyHeight();
+    const storyHeight = this.building.storyHeight;
     this.bufferTop = randomBetween(10, storyHeight/3);
     this.bufferBottom = randomBetween(15, storyHeight/3);
     this.bufferX = 10;
@@ -29,7 +29,7 @@ class WindowBlueprint {
 
   _initWindows() {
     this.windows = [];
-    for(let i = 0; i < this.building.stories(); i++) {
+    for(let i = 0; i < this.building.stories; i++) {
       for (let j = 0; j < this.building.blocksWide; j++) {
         if (this.building.doorPosition != coordinatesToUnique(i, j)) {
           this.windows.push(this._createWindow(i, j));

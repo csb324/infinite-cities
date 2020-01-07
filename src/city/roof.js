@@ -7,7 +7,7 @@ class Roof {
     this.building = building;
     this.width = building.width;
     let maxHeight = Math.min(
-      building.storyHeight(),
+      building.storyHeight,
       building.edges().top
     );
     this.height = randomBetween(10, maxHeight);

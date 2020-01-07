@@ -4,7 +4,7 @@ import { randomBetween, whiteColor } from '../helpers';
 class Door {
   constructor(building, unit) {
     this.building = building;
-    this.height = Math.min(building.storyHeight() * 0.75, constants.AVG_STORY_HEIGHT);
+    this.height = Math.min(building.storyHeight * 0.75, constants.AVG_STORY_HEIGHT);
     this.width = constants.DOOR_WIDTH;
 
     this.setXPosition(unit);

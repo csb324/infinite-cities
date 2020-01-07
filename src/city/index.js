@@ -9,6 +9,7 @@ class City extends CanvasSkeleton {
   constructor(width, height, canvas) {
     super(width, height, canvas)
     this.initBuildings();
+    window.buildings = [];
   }
 
   initAll() {
@@ -32,11 +33,15 @@ class City extends CanvasSkeleton {
     }
   }
 
+  reset() {
+    window.buildings = [];
+    super.reset();
+  }
+
   draw() {
-    console.log(this.ctx);
     this.buildings.forEach((b) => {
       b.draw(this.ctx);
-      window.building = b;
+      window.buildings.push(b);
     })
 
     // WHERE THE THINGS GO!

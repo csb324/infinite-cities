@@ -1,4 +1,4 @@
-import { randomBetween, wallColor, whiteColor, coordinatesToUnique } from '../helpers';
+import { randomBetween, wallColor, whiteColor, coordinatesToUnique, sampleFrom } from '../helpers';
 import constants from '../constants';
 
 import Wall from './wall';
@@ -14,7 +14,8 @@ class Building {
     this.yPos = yPos;
     this.width = width;
     this.blockWidth = blockWidth;
-    this.blocksWide = Math.floor(this.width / this.blockWidth);
+    this.blocksWide = Math.round(this.width / this.blockWidth);
+
     this.ctx = context;
 
     this.wallColor = wallColor();
@@ -25,16 +26,17 @@ class Building {
   }
 
   initHeight() {
-    const smallest = constants.AVG_STORY_HEIGHT;
-    const tallest = this.yPos - constants.PADDING_X; // for a buffer
-    this.height = randomBetween(smallest, tallest);
+    this._storyHeight = (constants.AVG_STORY_HEIGHT * randomBetween(1, 1.4));
+    this._stories = sampleFrom([1, 1, 2, 2, 2, 3]);
+
+    this.height = this._stories * this._storyHeight;
   }
 
-  stories() {
-    return Math.floor(this.height / constants.AVG_STORY_HEIGHT);
+  get stories() {
+    return this._stories;
   }
-  storyHeight() {
-    return this.height / this.stories();
+  get storyHeight() {
+    return this._storyHeight;
   }
 
   unitXPosition(unitNumber) {
@@ -42,7 +44,7 @@ class Building {
   }
 
   ceilingYPosition(story) {
-    return this.edges().bottom - ((story + 1) * this.storyHeight());
+    return this.edges().bottom - ((story + 1) * this._storyHeight);
   }
 
   edges() {
@@ -67,7 +69,7 @@ class Building {
     this.windowSet = new WindowBlueprint(this);
 
     this.decoratives = [];
-    for(let i = 1; i <= this.stories(); i++) {
+    for(let i = 1; i <= this._stories; i++) {
       this.decoratives.push(new Decorative(this, i));
     }
   }

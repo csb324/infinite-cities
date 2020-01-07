@@ -8,7 +8,7 @@ class Decorative {
     this.building = building;
     this.width = building.width;
     this.xPos = building.xPos;
-    this.yPos = building.edges().bottom - (level * building.storyHeight());
+    this.yPos = building.edges().bottom - (level * building.storyHeight);
 
     this.setUpBrickLine();
   }
