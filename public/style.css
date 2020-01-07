@@ -19,7 +19,7 @@ h1{
 }
 
 section{
-  width: 80%;
+  width: 90%;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -35,7 +35,7 @@ a{
 }
 
 a:hover{
-  transition: all 0.2s linear;  
+  transition: all 0.2s linear;
   text-decoration: underline;
 }
 
@@ -45,7 +45,7 @@ w-100{
 
 .centered{
   text-align: center;
-  
+
   margin-bottom: 2em;
 }
 

@@ -9,9 +9,9 @@ class Door {
     this.width = constants.DOOR_WIDTH;
 
     this.setXPosition();
-    this.setColorScheme();    
+    this.setColorScheme();
   }
-  
+
   setXPosition() {
     // This needs some rethinking
 
@@ -30,13 +30,13 @@ class Door {
       this.doorColor = chroma.random().brighten(2).desaturate(2);
     }
   }
-  
+
   draw(ctx) {
-    ctx.strokeStyle = this.frameColor;    
+    ctx.fillStyle = this.frameColor;
     const edges = this.building.edges();
-    ctx.strokeRect(this.xPos, edges.bottom, this.width, this.height * -1);
-    
-    ctx.fillStyle = this.doorColor;    
+    ctx.fillRect(this.xPos, edges.bottom, this.width, this.height * -1);
+
+    ctx.fillStyle = this.doorColor;
     ctx.fillRect(this.xPos + 5, edges.bottom, this.width - 10, (constants.AVG_PERSON_HEIGHT) * -1);
 
   }
