@@ -1,6 +1,5 @@
-import chroma from 'chroma-js';
 import constants from '../constants';
-import { randomBetween } from '../helpers';
+import { randomBetween, whiteColor } from '../helpers';
 
 class Door {
   constructor(building) {
@@ -14,7 +13,6 @@ class Door {
 
   setXPosition() {
     // This needs some rethinking
-
     const edges = this.building.edges();
     const xPosMin = edges.left + constants.BUILDING_PADDING;
     const xPosMax = edges.right - constants.BUILDING_PADDING - this.width;
@@ -23,11 +21,11 @@ class Door {
   }
   setColorScheme() {
     if (Math.random() > 0.5){
-      this.frameColor = chroma.random().brighten(2).desaturate(2);
-      this.doorColor = chroma.random();
+      this.frameColor = whiteColor();
+      this.doorColor = this.building.shadowColor();
     } else {
       this.frameColor = this.building.shadowColor();
-      this.doorColor = chroma.random().brighten(2).desaturate(2);
+      this.doorColor = whiteColor();
     }
   }
 

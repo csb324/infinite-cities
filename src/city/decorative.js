@@ -1,6 +1,4 @@
-import chroma from 'chroma-js';
-import constants from '../constants';
-import { randomBetween, sampleFrom } from '../helpers';
+import { sampleFrom } from '../helpers';
 
 const BRICK_HEIGHT = 5;
 const BRICK_WIDTH = BRICK_HEIGHT * 2;
@@ -32,9 +30,9 @@ class Decorative {
       ctx.fillStyle = sampleFrom([
         this.building.wallColor,
         this.building.wallColor,
+        this.building.wallColor,
+        this.building.wallColor,
         this.lightColor,
-        this.building.wallColor,
-        this.building.wallColor,
         this.lightColor,
         this.darkColor
       ]);

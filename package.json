@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run build && node server.js",
-    "build": "webpack"
+    "build": "webpack --watch"
   },
   "dependencies": {
     "express": "^4.17.1",

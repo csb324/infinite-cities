@@ -28,3 +28,13 @@ export const roofColor = () => {
     .lightness(randomBetween(0.1, 0.4))
     .scale()(Math.random());
 }
+
+
+export const whiteColor = () => {
+  return chroma.cubehelix()
+    .start(340)
+    .hue(randomBetween(1.0, 1.5))
+    .rotations(0.25)
+    .lightness(randomBetween(0.9, 1))
+    .scale()(Math.random());
+}
