@@ -12,21 +12,25 @@ class Building {
   constructor(xPos, yPos, width, blockWidth, context) {
     this.xPos = xPos;
     this.yPos = yPos;
-    this.width = width;
-    this.blockWidth = blockWidth;
-    this.blocksWide = Math.round(this.width / this.blockWidth);
 
     this.ctx = context;
 
     this.wallColor = wallColor();
     this.whiteColor = whiteColor();
 
+    this.initWidth(width, blockWidth);
     this.initHeight();
     this.initElements();
   }
 
+  initWidth(width, blockWidth) {
+    this.width = width;
+    this.blockWidth = blockWidth;
+    this.blocksWide = Math.round(this.width / this.blockWidth);
+  }
+
   initHeight() {
-    this._storyHeight = (constants.AVG_STORY_HEIGHT * randomBetween(1, 1.4));
+    this._storyHeight = (constants.AVG_STORY_HEIGHT * randomBetween(1, 1.5));
     this._stories = sampleFrom([1, 1, 2, 2, 2, 3]);
 
     this.height = this._stories * this._storyHeight;

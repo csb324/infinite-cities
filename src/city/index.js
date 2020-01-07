@@ -24,12 +24,33 @@ class City extends CanvasSkeleton {
 
     while (buildingIndex < this.width) {
       const blockWidth = randomBetween(constants.BLOCK_MIN_WIDTH, constants.BLOCK_MAX_WIDTH);
-      const blockCount = sampleFrom([1, 1, 2, 2, 2, 2, 2, 3])
-      const newWidth = blockCount * blockWidth;
-      if (buildingIndex + newWidth < this.width) {
-        this.buildings.push(new Building(buildingIndex, this.streetLevel, newWidth, blockWidth, this.ctx));
-      }
+      let newWidth = this.tryAddingBlockWidth(blockWidth, buildingIndex);
+
       buildingIndex += newWidth;
+    }
+  }
+
+  tryAddingBlockWidth(blockWidth, buildingIndex) {
+    let blockCountOptions = []
+    let newWidth = blockWidth;
+    const remainingSpace = (this.width - buildingIndex);
+
+    if (remainingSpace > blockWidth) {
+      blockCountOptions.push(1);
+      if (remainingSpace > (blockWidth * 2)) {
+        blockCountOptions = blockCountOptions.concat([2, 2, 2, 2, 2])
+      }
+      if (remainingSpace > (blockWidth * 3)) {
+        blockCountOptions = blockCountOptions.concat([3, 3])
+      }
+
+      const blockCount = sampleFrom(blockCountOptions);
+      newWidth = blockCount * blockWidth;
+      this.buildings.push(new Building(buildingIndex, this.streetLevel, newWidth, blockWidth, this.ctx));
+      return newWidth;
+
+    } else if (blockWidth > constants.BLOCK_MIN_WIDTH) {
+      return this.tryAddingBlockWidth(constants.BLOCK_MIN_WIDTH, buildingIndex);
     }
   }
 

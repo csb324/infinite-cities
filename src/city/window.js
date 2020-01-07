@@ -1,6 +1,3 @@
-// import { glassColor } from '../helpers';
-import constants from '../constants';
-
 class Window {
   constructor(row, column, blueprint, building) {
     this.blueprint = blueprint;
