@@ -8,8 +8,10 @@ const STREET_LEVEL = 0.8;
 class City extends CanvasSkeleton {
   constructor(width, height, canvas) {
     super(width, height, canvas)
+    this.buildingLogs = [];
     this.initBuildings();
     window.buildings = [];
+    window.city = this;
   }
 
   initAll() {
@@ -46,7 +48,27 @@ class City extends CanvasSkeleton {
 
       const blockCount = sampleFrom(blockCountOptions);
       newWidth = blockCount * blockWidth;
-      this.buildings.push(new Building(buildingIndex, this.streetLevel, newWidth, blockWidth, this.ctx));
+
+      const newBuilding = new Building(
+        buildingIndex, // x position
+        this.streetLevel, // y position (from the bottom)
+        newWidth, // width of the building
+        blockWidth, // width of a single block
+        this.ctx
+      )
+
+      this.buildingLogs.push({
+        blockCount,
+        blockWidth,
+        newWidth,
+        blockCountOptions
+      });
+
+      if (isNaN(newWidth)) {
+        window.stopRightNow = "because of line 69";
+      }
+
+      this.buildings.push(newBuilding);
       return newWidth;
 
     } else if (blockWidth > constants.BLOCK_MIN_WIDTH) {
@@ -56,6 +78,8 @@ class City extends CanvasSkeleton {
 
   reset() {
     window.buildings = [];
+    this.buildingLogs = [];
+
     super.reset();
   }
 

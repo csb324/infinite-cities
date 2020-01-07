@@ -6,8 +6,12 @@ export const randomBetween = (min, max) => {
   return (Math.random() * (max - min) + min).toFixed(2) * 1;
 }
 
+export const coinFlip = (chances = 0.5) => {
+  return (Math.random() < chances);
+}
+
 export const sampleFrom = (arr) => {
-  let i = Math.floor(randomBetween(0, arr.length));
+  let i = Math.floor(Math.random() * arr.length);
   return arr[i];
 }
 

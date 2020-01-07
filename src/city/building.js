@@ -1,3 +1,4 @@
+import chroma from 'chroma-js';
 import { randomBetween, wallColor, whiteColor, coordinatesToUnique, sampleFrom } from '../helpers';
 import constants from '../constants';
 
@@ -6,7 +7,8 @@ import Roof from './roof';
 import Door from './door';
 // import Window from './window';
 import Decorative from './decorative';
-import WindowBlueprint from './windowBlueprint';
+import windowFactory from './windows/factory';
+
 
 class Building {
   constructor(xPos, yPos, width, blockWidth, context) {
@@ -15,24 +17,40 @@ class Building {
 
     this.ctx = context;
 
-    this.wallColor = wallColor();
-    this.whiteColor = whiteColor();
-
+    this.initColors();
     this.initWidth(width, blockWidth);
     this.initHeight();
     this.initElements();
+  }
+
+  initColors() {
+    this.wallColor = wallColor();
+    this.whiteColor = whiteColor();
+
+    this.accentColor = chroma.random();
+
+    if (chroma.contrast(this.accentColor, this.wallColor) < 1.2) {
+      if (Math.random() > 0.5) {
+        this.accentColor = this.accentColor.darken(2);
+      } else {
+        this.accentColor = this.accentColor.brighten(1);
+      }
+    }
   }
 
   initWidth(width, blockWidth) {
     this.width = width;
     this.blockWidth = blockWidth;
     this.blocksWide = Math.round(this.width / this.blockWidth);
+
+    if (isNaN(this.width) || isNaN(this.blockWidth)) {
+      window.stopRightNow = "because of building.js#33";
+    }
   }
 
   initHeight() {
     this._storyHeight = (constants.AVG_STORY_HEIGHT * randomBetween(1, 1.5));
     this._stories = sampleFrom([1, 1, 2, 2, 2, 3]);
-
     this.height = this._stories * this._storyHeight;
   }
 
@@ -61,7 +79,7 @@ class Building {
   }
 
   initDoor() {
-    const doorUnit = Math.floor(randomBetween(0, this.blocksWide));
+    const doorUnit = Math.floor(randomBetween(0, this.blocksWide - 0.1));
     this.door = new Door(this, doorUnit);
     this.doorPosition = coordinatesToUnique(0, doorUnit);
   }
@@ -70,7 +88,7 @@ class Building {
     this.wall = new Wall(this);
     this.roof = new Roof(this);
     this.initDoor();
-    this.windowSet = new WindowBlueprint(this);
+    this.windowSet = windowFactory(this);
 
     this.decoratives = [];
     for(let i = 1; i <= this._stories; i++) {
