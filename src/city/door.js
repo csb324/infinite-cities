@@ -2,30 +2,27 @@ import constants from '../constants';
 import { randomBetween, whiteColor } from '../helpers';
 
 class Door {
-  constructor(building) {
+  constructor(building, unit) {
     this.building = building;
     this.height = Math.min(building.storyHeight() * 0.75, constants.AVG_STORY_HEIGHT);
     this.width = constants.DOOR_WIDTH;
 
-    this.setXPosition();
+    this.setXPosition(unit);
     this.setColorScheme();
   }
 
-  setXPosition() {
-    // This needs some rethinking
-    const edges = this.building.edges();
-    const xPosMin = edges.left + constants.BUILDING_PADDING;
-    const xPosMax = edges.right - constants.BUILDING_PADDING - this.width;
-    this.xPos = randomBetween(xPosMin, xPosMax)
-
+  setXPosition(unit) {
+    const unitStart = this.building.unitXPosition(unit);
+    const unitEndMinusWidth = this.building.unitXPosition(unit + 1) - this.width;
+    this.xPos = (unitStart + unitEndMinusWidth) / 2;
   }
   setColorScheme() {
     if (Math.random() > 0.5){
-      this.frameColor = whiteColor();
+      this.frameColor = this.building.whiteColor;
       this.doorColor = this.building.shadowColor();
     } else {
       this.frameColor = this.building.shadowColor();
-      this.doorColor = whiteColor();
+      this.doorColor = this.building.whiteColor;
     }
   }
 

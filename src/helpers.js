@@ -38,3 +38,16 @@ export const whiteColor = () => {
     .lightness(randomBetween(0.9, 1))
     .scale()(Math.random());
 }
+
+export const glassColor = () => {
+  return chroma.cubehelix()
+    .start(140)
+    .hue(0.9)
+    .rotations(0.25)
+    .lightness(randomBetween(0.1, 0.5))
+    .scale()(Math.random());
+}
+
+export const coordinatesToUnique = (i, j) => {
+  return 100 * i + j;
+}

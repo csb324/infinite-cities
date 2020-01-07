@@ -1,10 +1,11 @@
 import { qs } from './helpers';
 import City from './city';
+import constants from './constants';
 
 const canvas = qs('#app-canvas');
-
 const button = qs('#do-something');
-const city = new City(800, 500, canvas);
+
+const city = new City(800, constants.CANVAS_HEIGHT, canvas);
 
 city.run();
 
