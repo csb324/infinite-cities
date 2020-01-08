@@ -4,6 +4,7 @@ import ClassicWindow from './classicBlueprint';
 import { chooseBetween } from '../../helpers'
 
 function windowFactory(building) {
+  // return new ClassicWindow(building);
 
   switch (chooseBetween(3)) {
     case 1:

@@ -1,6 +1,7 @@
 import chroma from 'chroma-js';
 import constants from '../constants';
-import { randomBetween, roofColor } from '../helpers';
+import { randomBetween } from '../helpers';
+import { roofColor } from '../colorHelpers';
 
 class Roof {
   constructor(building) {

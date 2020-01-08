@@ -2,7 +2,6 @@ import { randomBetween, coinFlip } from '../../helpers';
 import _WindowBlueprint from './_windowBlueprint';
 
 const CEILING_FLOOR_PADDING = 15;
-const SMALLEST_WINDOW_PANE = 20;
 
 class ShuttersBlueprint extends _WindowBlueprint {
   constructor(building) {
@@ -27,25 +26,6 @@ class ShuttersBlueprint extends _WindowBlueprint {
     this._initGrilles();
   }
 
-  _initGrilles() {
-    const howManyGrillesVertical = Math.floor(this.height / SMALLEST_WINDOW_PANE);
-    const grilleDistanceY = this.height / howManyGrillesVertical;
-
-    this.grilleHeights = [];
-    for (let index = 0; index < howManyGrillesVertical; index++) {
-      this.grilleHeights.push((index + 1) * grilleDistanceY);
-    }
-
-    const howManyGrillesHorizontal = Math.floor(this.paneWidth / SMALLEST_WINDOW_PANE);
-    const grilleDistanceX = this.paneWidth / howManyGrillesHorizontal;
-
-    this.grilleWidths = [];
-    for (let index = 0; index < howManyGrillesHorizontal - 1; index++) {
-      this.grilleWidths.push((index + 1) * grilleDistanceX);
-    }
-
-  }
-
   _initHeights() {
     const storyHeight = this.building.storyHeight;
     this.height = storyHeight * randomBetween(0.4, 0.7)
@@ -56,7 +36,7 @@ class ShuttersBlueprint extends _WindowBlueprint {
   _initWidth() {
     const unitWidth = this.building.blockWidth;
     this.shutterWidth = unitWidth * randomBetween(0.15, 0.23);;
-    this.paneWidth = this.shutterWidth * 2;
+    this.width = this.shutterWidth * 2;
     this.bufferX = (unitWidth - this.totalWidth()) / 2;
   }
 
@@ -70,7 +50,7 @@ class ShuttersBlueprint extends _WindowBlueprint {
       ctx.fillRect(
         xPos + this.shutterWidth,
         yPos + h - (this.frameThickness / 2),
-        this.paneWidth,
+        this.width,
         this.frameThickness
       );
     }
@@ -95,13 +75,13 @@ class ShuttersBlueprint extends _WindowBlueprint {
     ctx.fillRect(xPos, yPos, this.totalWidth(), this.height);
 
     ctx.fillStyle = this.frameColor;
-    ctx.fillRect(xPos + this.shutterWidth, yPos, this.paneWidth, this.height + 3);
+    ctx.fillRect(xPos + this.shutterWidth, yPos, this.width, this.height + 3);
 
     ctx.fillStyle = this.building.shadowColor().alpha(0.3);
     ctx.fillRect(xPos, yPos + this.height, this.totalWidth(), 3);
 
     ctx.fillStyle = this.glassColor;
-    ctx.fillRect(xPos + this.shutterWidth + this.frameThickness, yPos + this.frameThickness, this.paneWidth - (this.frameThickness * 2), this.height - (this.frameThickness * 2));
+    ctx.fillRect(xPos + this.shutterWidth + this.frameThickness, yPos + this.frameThickness, this.width - (this.frameThickness * 2), this.height - (this.frameThickness * 2));
 
     ctx = this.drawGrilles(xPos, yPos, ctx);
   }

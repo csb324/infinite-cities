@@ -1,5 +1,4 @@
 import constants from '../constants';
-import { randomBetween, whiteColor } from '../helpers';
 
 class Door {
   constructor(building, unit) {

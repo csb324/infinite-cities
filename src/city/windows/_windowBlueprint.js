@@ -1,4 +1,7 @@
-import { coordinatesToUnique, glassColor, randomBetween } from '../../helpers';
+import { coordinatesToUnique, randomBetween } from '../../helpers';
+import { glassColor } from '../../colorHelpers';
+
+const SMALLEST_WINDOW_PANE = 20;
 
 class _WindowBlueprint {
   constructor(building) {
@@ -11,6 +14,25 @@ class _WindowBlueprint {
     this.width = 10;
     this.height = 10;
     this.frameThickness = randomBetween(1.5, 4);
+  }
+
+
+  _initGrilles() {
+    const howManyGrillesVertical = Math.floor(this.height / SMALLEST_WINDOW_PANE);
+    const grilleDistanceY = this.height / howManyGrillesVertical;
+
+    this.grilleHeights = [];
+    for (let index = 0; index < howManyGrillesVertical - 1; index++) {
+      this.grilleHeights.push((index + 1) * grilleDistanceY);
+    }
+
+    const howManyGrillesHorizontal = Math.floor(this.width / SMALLEST_WINDOW_PANE);
+    const grilleDistanceX = this.width / howManyGrillesHorizontal;
+
+    this.grilleWidths = [];
+    for (let index = 0; index < howManyGrillesHorizontal - 1; index++) {
+      this.grilleWidths.push((index + 1) * grilleDistanceX);
+    }
   }
 
   _initColors() {

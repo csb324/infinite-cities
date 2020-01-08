@@ -1,5 +1,6 @@
 import chroma from 'chroma-js';
-import { randomBetween, wallColor, whiteColor, coordinatesToUnique, sampleFrom } from '../helpers';
+import { randomBetween, coordinatesToUnique, sampleFrom } from '../helpers';
+import { wallColor, whiteColor, accentColor } from '../colorHelpers';
 import constants from '../constants';
 
 import Wall from './wall';
@@ -27,7 +28,7 @@ class Building {
     this.wallColor = wallColor();
     this.whiteColor = whiteColor();
 
-    this.accentColor = chroma.random();
+    this.accentColor = accentColor();
 
     if (chroma.contrast(this.accentColor, this.wallColor) < 1.2) {
       if (Math.random() > 0.5) {
