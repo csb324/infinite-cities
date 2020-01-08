@@ -1,5 +1,6 @@
 import Building from './building';
 import { randomBetween, sampleFrom } from '../helpers';
+import { concreteColor, roofColor } from '../colorHelpers';
 import constants from '../constants';
 import CanvasSkeleton from '../canvasSkeleton'
 
@@ -90,6 +91,19 @@ class City extends CanvasSkeleton {
     super.reset();
   }
 
+  drawSidewalk(xOffset) {
+    this.ctx.fillStyle = concreteColor();
+    this.sidewalkHeight = randomBetween(8, 12);
+    const sidewalkWidth = this.width - (2 * xOffset) + constants.PADDING_X;
+    this.ctx.fillRect(0, this.streetLevel, sidewalkWidth, this.sidewalkHeight);
+  }
+
+  drawRoad() {
+    this.ctx.fillStyle = roofColor();
+    const roadHeight = randomBetween(30, 35);
+    this.ctx.fillRect(-constants.BLOCK_MIN_WIDTH, this.streetLevel + this.sidewalkHeight, this.width + constants.BLOCK_MIN_WIDTH, roadHeight);
+  }
+
   draw() {
     let xOffset = this.initBuildings();
     this.ctx.translate(xOffset, 0);
@@ -101,6 +115,10 @@ class City extends CanvasSkeleton {
     this.buildings.forEach((b) => {
       b.roof.drawLast(this.ctx);
     });
+
+    this.drawSidewalk(xOffset);
+    this.drawRoad();
+
     this.ctx.translate(-xOffset, 0);
   }
 

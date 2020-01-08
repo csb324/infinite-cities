@@ -53,3 +53,11 @@ export const metalColor = () => {
     .lightness(randomBetween(0.35, 0.55))
     .scale()(Math.random());
 }
+export const concreteColor = () => {
+  return chroma.cubehelix()
+    .start(30)
+    .hue(0.5)
+    .rotations(0.2)
+    .lightness(randomBetween(0.85, 0.95))
+    .scale()(Math.random());
+}

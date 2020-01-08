@@ -7,8 +7,8 @@ With its ENDLESS STREETS with HOUSES and maybe even a STORE or a FIRE HYDRANT or
 ### To do:
 [X] chimney!!
 [ ] Front steps
-[ ] Sidewalk
-[ ] Street
+[X] Sidewalk
+[X] Street
 [ ] Maybe a nice tree
 [ ] Mail slot in a door
 [ ] Flower boxes
