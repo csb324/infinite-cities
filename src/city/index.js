@@ -25,13 +25,16 @@ class City extends CanvasSkeleton {
     this.streetLevel = this.height * STREET_LEVEL;
     this.buildings = [];
     let buildingIndex = constants.PADDING_X;
+    let newWidth = 0;
 
     while (buildingIndex < this.width) {
       const blockWidth = randomBetween(constants.BLOCK_MIN_WIDTH, constants.BLOCK_MAX_WIDTH);
-      let newWidth = this.tryAddingBlockWidth(blockWidth, buildingIndex);
+      newWidth = this.tryAddingBlockWidth(blockWidth, buildingIndex);
 
       buildingIndex += newWidth;
     }
+    const buildingEnd = buildingIndex - newWidth;
+    return (this.width - buildingEnd) / 2;
   }
 
   tryAddingBlockWidth(blockWidth, buildingIndex) {
@@ -75,6 +78,8 @@ class City extends CanvasSkeleton {
 
     } else if (blockWidth > constants.BLOCK_MIN_WIDTH) {
       return this.tryAddingBlockWidth(constants.BLOCK_MIN_WIDTH, buildingIndex);
+    } else {
+      return constants.BLOCK_MIN_WIDTH;
     }
   }
 
@@ -86,15 +91,17 @@ class City extends CanvasSkeleton {
   }
 
   draw() {
+    let xOffset = this.initBuildings();
+    this.ctx.translate(xOffset, 0);
+
     this.buildings.forEach((b) => {
       b.draw(this.ctx);
       window.buildings.push(b);
-    })
+    });
     this.buildings.forEach((b) => {
       b.roof.drawLast(this.ctx);
-    })
-
-    // WHERE THE THINGS GO!
+    });
+    this.ctx.translate(-xOffset, 0);
   }
 
   run() {
