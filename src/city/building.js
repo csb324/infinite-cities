@@ -1,15 +1,16 @@
 import chroma from 'chroma-js';
-import { randomBetween, coordinatesToUnique, sampleFrom } from '../helpers';
+import { randomBetween, coordinatesToUnique, sampleFrom, coinFlip } from '../helpers';
 import { wallColor, whiteColor, accentColor } from '../colorHelpers';
 import constants from '../constants';
 
 import Wall from './wall';
 import Roof from './roof';
-import Door from './door';
-// import Window from './window';
 import Decorative from './decorative';
-import windowFactory from './windows/factory';
 
+import windowFactory from './windows/factory';
+import doorFactory from './doors/factory';
+
+const BAY_THRESHOLD = 20;
 
 class Building {
   constructor(xPos, yPos, width, blockWidth, context) {
@@ -17,6 +18,8 @@ class Building {
     this.yPos = yPos;
 
     this.ctx = context;
+
+    this.couldHaveBayWindow = false;
 
     this.initColors();
     this.initWidth(width, blockWidth);
@@ -31,7 +34,7 @@ class Building {
     this.accentColor = accentColor();
 
     if (chroma.contrast(this.accentColor, this.wallColor) < 1.2) {
-      if (Math.random() > 0.5) {
+      if (coinFlip()) {
         this.accentColor = this.accentColor.darken(2);
       } else {
         this.accentColor = this.accentColor.brighten(1);
@@ -81,7 +84,7 @@ class Building {
 
   initDoor() {
     const doorUnit = Math.floor(randomBetween(0, this.blocksWide - 0.1));
-    this.door = new Door(this, doorUnit);
+    this.door = doorFactory(this, doorUnit);
     this.doorPosition = coordinatesToUnique(0, doorUnit);
   }
 
@@ -90,6 +93,10 @@ class Building {
     this.roof = new Roof(this);
     this.initDoor();
     this.windowSet = windowFactory(this);
+
+    if ((this.windowSet.bufferX > BAY_THRESHOLD) && this.blocksWide > 1) {
+      this.couldHaveBayWindow = true;
+    }
 
     this.decoratives = [];
     for(let i = 1; i <= this._stories; i++) {
@@ -107,6 +114,11 @@ class Building {
 
   draw(ctx) {
     this.wall.draw(ctx);
+
+    if (this.couldHaveBayWindow) {
+      this.wall.drawBayWindow(ctx, this.doorPosition);
+    }
+
     this.decoratives.forEach((d) => {
       d.draw(ctx);
     });

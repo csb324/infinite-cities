@@ -37,12 +37,19 @@ export const glassColor = () => {
     .scale()(Math.random());
 }
 
-
 export const accentColor = () => {
   return chroma.cubehelix()
     .start(150)
     .hue(randomBetween(1, 1.8))
     .rotations(2.25)
     .lightness(randomBetween(0.3, 0.7))
+    .scale()(Math.random());
+}
+export const metalColor = () => {
+  return chroma.cubehelix()
+    .start(60)
+    .hue([0, 1.2])
+    .rotations(-0.1)
+    .lightness(randomBetween(0.35, 0.55))
     .scale()(Math.random());
 }
