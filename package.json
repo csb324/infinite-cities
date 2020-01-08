@@ -5,8 +5,8 @@
   "description": "a webpack template for glitch",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build && node server.js",
-    "build": "webpack --watch"
+    "start": "webpack && node server.js",
+    "local-build": "webpack --watch"
   },
   "dependencies": {
     "express": "^4.17.1",
