@@ -10,6 +10,11 @@ export const coinFlip = (chances = 0.5) => {
   return (Math.random() < chances);
 }
 
+export const chooseBetween = (howManyOptions) => {
+    const max = Math.floor(howManyOptions);
+    return Math.floor(Math.random() * (max)) + 1;
+}
+
 export const sampleFrom = (arr) => {
   let i = Math.floor(Math.random() * arr.length);
   return arr[i];
@@ -48,7 +53,7 @@ export const glassColor = () => {
     .start(140)
     .hue(0.9)
     .rotations(0.25)
-    .lightness(randomBetween(0.1, 0.5))
+    .lightness(randomBetween(0.1, 0.4))
     .scale()(Math.random());
 }
 
