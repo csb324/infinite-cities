@@ -61,3 +61,6 @@ export const concreteColor = () => {
     .lightness(randomBetween(0.85, 0.95))
     .scale()(Math.random());
 }
+
+export const softLightShadow = chroma('#251c4a').alpha(0.8);
+export const softLightHighlight = chroma('#fff7db').alpha(0.8);

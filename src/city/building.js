@@ -6,11 +6,10 @@ import constants from '../constants';
 import Wall from './wall';
 import Roof from './roof';
 import Decorative from './decorative';
+import BayWindow from './bayWindow';
 
 import windowFactory from './windows/factory';
 import doorFactory from './doors/factory';
-
-const BAY_THRESHOLD = 20;
 
 class Building {
   constructor(xPos, yPos, width, blockWidth, context) {
@@ -19,7 +18,7 @@ class Building {
 
     this.ctx = context;
 
-    this.couldHaveBayWindow = false;
+    this.bayWindow = false;
 
     this.initColors();
     this.initWidth(width, blockWidth);
@@ -94,8 +93,8 @@ class Building {
     this.initDoor();
     this.windowSet = windowFactory(this);
 
-    if ((this.windowSet.bufferX > BAY_THRESHOLD) && this.blocksWide > 1) {
-      this.couldHaveBayWindow = true;
+    if ((this.windowSet.bufferX > this.blockWidth / 4) && this.blocksWide > 1) {
+      this.bayWindow = new BayWindow(this);
     }
 
     this.decoratives = [];
@@ -115,16 +114,22 @@ class Building {
   draw(ctx) {
     this.wall.draw(ctx);
 
-    if (this.couldHaveBayWindow) {
-      this.wall.drawBayWindow(ctx, this.doorPosition);
-    }
-
     this.decoratives.forEach((d) => {
       d.draw(ctx);
     });
+
+    if (this.bayWindow) {
+      this.bayWindow.draw(ctx);
+    }
+
     this.windowSet.draw(ctx);
     this.door.draw(ctx);
     this.roof.draw(ctx);
+  }
+
+  drawLast(ctx) {
+    this.roof.drawLast(ctx);
+    this.bayWindow ? this.bayWindow.drawLast(ctx) : false;
   }
 }
 

@@ -113,7 +113,7 @@ class City extends CanvasSkeleton {
       window.buildings.push(b);
     });
     this.buildings.forEach((b) => {
-      b.roof.drawLast(this.ctx);
+      b.drawLast(this.ctx);
     });
 
     this.drawSidewalk(xOffset);
