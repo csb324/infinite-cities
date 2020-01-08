@@ -8,7 +8,7 @@ const button2 = qs('#find-broken');
 
 window.stopRightNow = false;
 
-const city = new City(800, constants.CANVAS_HEIGHT, canvas);
+const city = new City(1000, constants.CANVAS_HEIGHT, canvas);
 city.run();
 
 button.addEventListener('click', function(e) {

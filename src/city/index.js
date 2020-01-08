@@ -88,6 +88,9 @@ class City extends CanvasSkeleton {
       b.draw(this.ctx);
       window.buildings.push(b);
     })
+    this.buildings.forEach((b) => {
+      b.roof.drawLast(this.ctx);
+    })
 
     // WHERE THE THINGS GO!
   }
