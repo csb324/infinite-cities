@@ -1,5 +1,5 @@
 import constants from '../../constants';
-import { chooseBetween, randomBetween } from '../../helpers';
+import { chooseBetween, randomBetween, coinFlip } from '../../helpers';
 import { metalColor } from '../../colorHelpers';
 
 const DOORKNOB_RADIUS = 3.5;
@@ -48,14 +48,22 @@ class _Door {
     return this.building.edges().bottom - this.height - this.frameHeight;
   }
 
-  _drawDoorknob(ctx) {
-    const doorKnobX = this.xPos + this.width + this.frameWidth - (DOORKNOB_RADIUS * 2);
+  _drawDoorknob(ctx, xPosition) {
     const doorKnobY = this.building.edges().bottom - this.width - DOORKNOB_RADIUS;
-
     ctx.fillStyle = this.metalColor;
     ctx.beginPath();
-    ctx.ellipse(doorKnobX, doorKnobY, DOORKNOB_RADIUS, DOORKNOB_RADIUS, 0, 0, 2 * Math.PI);
+    ctx.ellipse(xPosition, doorKnobY, DOORKNOB_RADIUS, DOORKNOB_RADIUS, 0, 0, 2 * Math.PI);
     ctx.fill();
+  }
+
+  _doorknobPosition() {
+    let doorKnobX = this.xPos + this.frameWidth;
+    if(coinFlip()) {
+      doorKnobX += this.width - (DOORKNOB_RADIUS * 2);
+    } else {
+      doorKnobX += (DOORKNOB_RADIUS * 2);
+    }
+    return doorKnobX;
   }
 
   _drawDoor(ctx) {

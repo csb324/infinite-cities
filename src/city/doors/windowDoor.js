@@ -106,7 +106,7 @@ class WindowDoor extends _Door {
   draw(ctx) {
     super.draw(ctx);
     this._drawSideWindows(ctx);
-    this._drawDoorknob(ctx);
+    this._drawDoorknob(ctx, this._doorknobPosition());
     if (coinFlip()) {
       this._drawWindowAccents(ctx);
     }

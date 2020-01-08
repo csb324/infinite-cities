@@ -4,7 +4,7 @@ class ClassicDoor extends _Door {
 
   draw(ctx) {
     super.draw(ctx);
-    this._drawDoorknob(ctx);
+    this._drawDoorknob(ctx, this._doorknobPosition());
   }
 }
 
