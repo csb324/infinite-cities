@@ -8,6 +8,8 @@ const STREET_LEVEL = 0.8;
 class City extends CanvasSkeleton {
   constructor(width, height, canvas) {
     super(width, height, canvas)
+    this.ctx.translate(0, 15);
+
     this.buildingLogs = [];
     this.initBuildings();
     window.buildings = [];
